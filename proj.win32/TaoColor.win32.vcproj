@@ -199,10 +199,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\Classes\DrawBoxScene.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\main.cpp"
 				>
 			</File>
@@ -220,15 +216,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\Classes\DrawBoxScene.h"
-				>
-			</File>
-			<File
 				RelativePath=".\main.h"
-				>
-			</File>
-			<File
-				RelativePath="..\Classes\RenderDrawScene.h"
 				>
 			</File>
 			<File

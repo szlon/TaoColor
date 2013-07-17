@@ -22,8 +22,6 @@ void RenderDrawScene::onEnter()
 	CCLayer *layer = new RenderLayer();
 	
 	this->addChild(layer);
-
-
 }
 
 //------------------------------------------------------------------
@@ -93,7 +91,7 @@ void RenderLayer::initRenderTexture()
 
 	m_pBrush = CCSprite::create("Images/Brush03.png");
 	m_pBrush->retain();	    
-	//m_pBrush->setColor(ccRED);
+	m_pBrush->setColor(ccYELLOW);
     m_pBrush->setOpacity(50);
 
 	m_pBrush->setScale(0.5f);
