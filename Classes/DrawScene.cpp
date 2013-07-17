@@ -1,35 +1,25 @@
-﻿#include "RenderDrawScene.h"
+﻿#include "DrawScene.h"
 
-#define SPRITE_INDEX    100
-
-enum 
-{
-    kTagTileMap = 1,
-    kTagSpriteBatchNode = 1,
-    kTagNode = 2,
-    kTagAnimation1 = 1,
-    kTagSpriteDown,
-    kTagSpriteLeft,
-    kTagSpriteRight,
-    kTagSpriteUP,
-
-};
-
-void RenderDrawScene::onEnter()
+//------------------------------------------------------------------
+//
+// DrawScene
+//
+//------------------------------------------------------------------
+void DrawScene::onEnter()
 {	    
 	CCScene::onEnter();
     
-	CCLayer *layer = new RenderLayer();
+	CCLayer *layer = new DrawLayer();
 	
 	this->addChild(layer);
 }
 
 //------------------------------------------------------------------
 //
-// CanvasLayer
+// DrawLayer
 //
 //------------------------------------------------------------------
-void RenderLayer::onEnter()
+void DrawLayer::onEnter()
 {
     CCLayer::onEnter();
 
@@ -49,7 +39,7 @@ void RenderLayer::onEnter()
                                         "ClearNormal.png",
                                         "ClearSelected.png",
                                         this,
-										menu_selector(RenderLayer::menuClearCallback) );
+										menu_selector(DrawLayer::menuClearCallback) );
 
     pClearItem->setPosition( ccp(CCDirector::sharedDirector()->getWinSize().width / 2, 22) );
 
@@ -58,7 +48,7 @@ void RenderLayer::onEnter()
                                         "CloseNormal.png",
                                         "CloseSelected.png",
                                         this,
-										menu_selector(RenderLayer::menuCloseCallback) );
+										menu_selector(DrawLayer::menuCloseCallback) );
 
     pCloseItem->setPosition( ccp(CCDirector::sharedDirector()->getWinSize().width - 20, 20) );
 
@@ -67,19 +57,12 @@ void RenderLayer::onEnter()
     pMenu->setPosition( CCPointZero );
     this->addChild(pMenu, 1);
 
-	//----------------------------------------------------------------------------
-
-	CCSpriteBatchNode * batchNode = CCSpriteBatchNode::create("Images/SpriteTextures.png", 50);	//128x192
-	addChild(batchNode, 0, kTagSpriteBatchNode);
-
-	//----------------------------------------------------------------------------
-	    
 
 	initRenderTexture();
 
 }
 
-void RenderLayer::initRenderTexture()
+void DrawLayer::initRenderTexture()
 {		
 	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
 
@@ -98,15 +81,14 @@ void RenderLayer::initRenderTexture()
 }
 
 
-void RenderLayer::registerWithTouchDispatcher()
+void DrawLayer::registerWithTouchDispatcher()
 {	    
 	CCDirector* pDirector = CCDirector::sharedDirector();
     pDirector->getTouchDispatcher()->addStandardDelegate(this, kCCMenuHandlerPriority);
-    //pDirector->getTouchDispatcher()->addTargetedDelegate(this, kCCMenuHandlerPriority, true);
 
 }
 
-void RenderLayer::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
+void DrawLayer::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
 {
     CCTouch *pTouch = (CCTouch *)pTouches->anyObject();	    
 	CCPoint start = pTouch->getLocation();
@@ -122,11 +104,11 @@ void RenderLayer::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
 
 }
 
-void RenderLayer::ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent)
+void DrawLayer::ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent)
 {
 }
 
-void RenderLayer::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent)
+void DrawLayer::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent)
 {
     CCTouch *pTouch  = (CCTouch *)pTouches->anyObject();
     CCPoint start = pTouch->getLocation();
@@ -134,10 +116,6 @@ void RenderLayer::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent)
 
     m_pTarget->begin();
 
-	//m_pBrush->setPosition(ccp(start.x, start.y));
-	//m_pBrush->visit();
-    // for extra points, we'll draw this smoothly from the last position and vary the sprite's
-    // scale/rotation/offset
     float distance = ccpDistance(start, end);
     if (distance > 1)
     {
@@ -149,41 +127,23 @@ void RenderLayer::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent)
             float delta = (float)i / distance;
 
 			//delta = CCRANDOM_0_1() * delta;
-            m_pBrush->setPosition(ccp(start.x + (difx * delta), start.y + (dify * delta)));
-            //m_pBrush->setRotation(rand() % 360);
-            //float r = (float)(rand() % 50 / 50.f) + 0.25f;
-            //m_pBrush->setScale(r);
-            ///*m_pBrush->setColor(ccc3(CCRANDOM_0_1() * 127 + 128, 255, 255));*/
-            //// Use CCRANDOM_0_1() will cause error when loading libtests.so on android, I don't know why.
-            ////m_pBrush->setColor(ccc3(rand() % 127 + 128, 255, 255));
-            //// Call visit to draw the brush, don't call draw..
+            
+			m_pBrush->setPosition(ccp(start.x + (difx * delta), start.y + (dify * delta)));
+
             m_pBrush->visit();
         }
     }
 
-    // finish drawing and return context back to the screen
     m_pTarget->end();
 }
 
-bool RenderLayer::ccTouchBegan(CCTouch* touch, CCEvent* event)
-{
-	return true;
-}
 
-void RenderLayer::ccTouchMoved(CCTouch* touch, CCEvent* event)
-{
-}
-
-void RenderLayer::ccTouchEnded(CCTouch* touch, CCEvent* event)
-{
-}
-
-void RenderLayer::menuClearCallback(CCObject* pSender)
+void DrawLayer::menuClearCallback(CCObject* pSender)
 {
     m_pTarget->clear(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1());
 }
 
-void RenderLayer::menuCloseCallback(CCObject* pSender)
+void DrawLayer::menuCloseCallback(CCObject* pSender)
 {
     CCDirector::sharedDirector()->end();
 

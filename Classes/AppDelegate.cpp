@@ -1,7 +1,7 @@
 #include "AppDelegate.h"
 
 #include "cocos2d.h"
-#include "RenderDrawScene.h"
+#include "DrawScene.h"
 
 USING_NS_CC;
 
@@ -27,11 +27,11 @@ bool AppDelegate::applicationDidFinishLaunching()
     pDirector->setAnimationInterval(1.0 / 60);
 
 
-	CCScene * pRenderDrawScene = new RenderDrawScene();
+	CCScene * pScene = new DrawScene();
 
     // run
-    pDirector->runWithScene(pRenderDrawScene);	
-	pRenderDrawScene->release();
+    pDirector->runWithScene(pScene);	
+	pScene->release();
 
     return true;
 }
