@@ -27,8 +27,19 @@ public:
 	void menuCloseCallback(CCObject* pSender);
 			
 	void initRenderTexture();
+	
+	virtual void registerWithTouchDispatcher();
 
-	virtual void ccTouchesMoved(CCSet* touches, CCEvent* event);
+	// addStandardDelegate()
+    virtual void ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent);
+    virtual void ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent);
+    virtual void ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent);
+    //virtual void ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent);
 
+    // addTargetedDelegate()
+    virtual bool ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
+    virtual void ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent);
+    virtual void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent);
+    //virtual void ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent);
 };
 #endif

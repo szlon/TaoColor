@@ -1,7 +1,6 @@
 #include "AppDelegate.h"
 
 #include "cocos2d.h"
-#include "HelloWorldScene.h"
 #include "DrawBoxScene.h"
 #include "RenderDrawScene.h"
 

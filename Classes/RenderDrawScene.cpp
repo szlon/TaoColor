@@ -35,6 +35,8 @@ void RenderLayer::onEnter()
 {
     CCLayer::onEnter();
 
+	this->setTouchEnabled(true);
+
 	CCLabelTTF *label = CCLabelTTF::create("TaoRender", "Arial", 20);
 
 	CCSize size = CCDirector::sharedDirector()->getWinSize();
@@ -42,8 +44,6 @@ void RenderLayer::onEnter()
     label->setPosition( ccp(size.width / 2, size.height - 20) );
 
 	this->addChild(label);
-
-	setTouchEnabled(true);
 
 
 	//---------------------------------------------		
@@ -75,7 +75,7 @@ void RenderLayer::onEnter()
 	addChild(batchNode, 0, kTagSpriteBatchNode);
 
 	//----------------------------------------------------------------------------
-
+	    
 
 	initRenderTexture();
 
@@ -98,18 +98,43 @@ void RenderLayer::initRenderTexture()
 
 	m_pBrush->setScale(0.5f);
 
-    this->setTouchEnabled(true);
+}
+
+
+void RenderLayer::registerWithTouchDispatcher()
+{	    
+	CCDirector* pDirector = CCDirector::sharedDirector();
+    pDirector->getTouchDispatcher()->addStandardDelegate(this, kCCMenuHandlerPriority);
+    //pDirector->getTouchDispatcher()->addTargetedDelegate(this, kCCMenuHandlerPriority, true);
+
+}
+
+void RenderLayer::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
+{
+    CCTouch *pTouch = (CCTouch *)pTouches->anyObject();	    
+	CCPoint start = pTouch->getLocation();
+    CCPoint end = pTouch->getPreviousLocation();
+
+
+    m_pTarget->begin();
+
+	m_pBrush->setPosition(ccp(start.x, start.y));
+	m_pBrush->visit();
+    m_pTarget->end();
 
 
 }
 
-void RenderLayer::ccTouchesMoved(CCSet* touches, CCEvent* event)
+void RenderLayer::ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent)
 {
-    CCTouch *touch = (CCTouch *)touches->anyObject();
-    CCPoint start = touch->getLocation();
-    CCPoint end = touch->getPreviousLocation();
+}
 
-    // begin drawing to the render texture
+void RenderLayer::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent)
+{
+    CCTouch *pTouch  = (CCTouch *)pTouches->anyObject();
+    CCPoint start = pTouch->getLocation();
+    CCPoint end = pTouch->getPreviousLocation();
+
     m_pTarget->begin();
 
 	//m_pBrush->setPosition(ccp(start.x, start.y));
@@ -143,6 +168,18 @@ void RenderLayer::ccTouchesMoved(CCSet* touches, CCEvent* event)
     m_pTarget->end();
 }
 
+bool RenderLayer::ccTouchBegan(CCTouch* touch, CCEvent* event)
+{
+	return true;
+}
+
+void RenderLayer::ccTouchMoved(CCTouch* touch, CCEvent* event)
+{
+}
+
+void RenderLayer::ccTouchEnded(CCTouch* touch, CCEvent* event)
+{
+}
 
 void RenderLayer::menuClearCallback(CCObject* pSender)
 {
