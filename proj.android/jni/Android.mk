@@ -8,8 +8,9 @@ LOCAL_MODULE_FILENAME := libgame
 
 LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/AppDelegate.cpp \
-                   ../../Classes/DrawBoxScene.cpp \
-                   ../../Classes/HelloWorldScene.cpp
+                   ../../Classes/DrawScene.cpp \
+                   ../../Classes/MenuLayer.cpp \
+                   ../../Classes/TableViewLayer.cpp 
                    
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes                   
 
