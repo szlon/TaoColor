@@ -33,8 +33,9 @@ void DrawLayer::onEnter()
 	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
 
 	CCLabelTTF *label = CCLabelTTF::create("TaoColor", "Arial", 20);
-
+	
 	label->setPosition( ccp(winSize.width / 2, winSize.height - 20) );
+	label->setColor(ccBLACK);
 
 	this->addChild(label, 1, 201);
 
@@ -83,12 +84,15 @@ void DrawLayer::initRenderTexture()
 	m_pTarget = CCRenderTexture::create(winSize.width, winSize.height, kCCTexture2DPixelFormat_RGBA8888);	    
 	m_pTarget->retain();
     m_pTarget->setPosition(ccp(winSize.width / 2, winSize.height / 2));
-    m_pTarget->clear(0,0,0,0);
-	//m_pTarget->clear(255,255,255,255);
+    
+	m_bClearState = false;
+
+	//m_pTarget->clear(0,0,0,0);
+	m_pTarget->clear(255,255,255,255);
 
 	this->addChild(m_pTarget, 0);
 
-	m_pBrush = CCSprite::create("Images/Brush02.png");
+	m_pBrush = CCSprite::create("Images/Brush03.png");
 	m_pBrush->retain();	    
 	m_pBrush->setColor(ccBLACK);
     m_pBrush->setOpacity(100);
@@ -155,6 +159,17 @@ void DrawLayer::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent)
 
 void DrawLayer::menuClearCallback(CCObject* pSender)
 {	    
+	//清屏（改变背景色）
+	m_bClearState = !m_bClearState;
+	if(m_bClearState)
+	{
+		m_pTarget->clear(0,0,0, 10);
+	}
+	else
+	{
+		m_pTarget->clear(255,255,255,255);
+	}
+
     //m_pTarget->clear(0,0,0, 10);
 	//m_pTarget->clear(255,255,255,255);
 	//m_pTarget->clear(37,43,48,255);
@@ -163,7 +178,9 @@ void DrawLayer::menuClearCallback(CCObject* pSender)
 	//CCLayer * pMenuLayer = (CCLayer *)this->getChildByTag(101);
 	//pMenuLayer->setVisible(true);
 
-    m_pTarget->clear(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1());
+
+    //m_pTarget->clear(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1());
+
 }
 
 void DrawLayer::menuCloseCallback(CCObject* pSender)
@@ -182,8 +199,8 @@ void DrawLayer::onColorChanged(ccColor3B color)
 	//CCLOG("%s", colorStr->getCString());
 
 	CCLabelTTF *label = (CCLabelTTF *)this->getChildByTag(201);
-	label->setString(colorStr->getCString());
-
+	//label->setString(colorStr->getCString());
+	label->setColor(color);
 
 	m_pBrush->setColor(color);
 

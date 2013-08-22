@@ -28,7 +28,8 @@ bool TableViewLayer::init()
 
 	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
 
-	CCTableView* tableView = CCTableView::create(this, CCSizeMake(VIEW_ITEM_SIZE * VIEW_COUNT, VIEW_ITEM_SIZE));
+	//CCTableView* tableView = CCTableView::create(this, CCSizeMake(VIEW_ITEM_SIZE * VIEW_COUNT, VIEW_ITEM_SIZE));
+	CCTableView* tableView = MyTableView::create(this, CCSizeMake(VIEW_ITEM_SIZE * VIEW_COUNT, VIEW_ITEM_SIZE));
     tableView->setDirection(kCCScrollViewDirectionHorizontal);	  
     tableView->setDelegate(this);
 

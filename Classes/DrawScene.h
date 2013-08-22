@@ -16,7 +16,7 @@ class DrawLayer : public cocos2d::CCLayer, public StateChange
 protected:	    
 	cocos2d::CCRenderTexture *m_pTarget;
 	cocos2d::CCSprite *m_pBrush;
-	
+	bool m_bClearState;
 
 public:
 	virtual void onEnter();

@@ -10,6 +10,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/AppDelegate.cpp \
                    ../../Classes/DrawScene.cpp \
                    ../../Classes/MenuLayer.cpp \
+                   ../../Classes/MyTableView.cpp \
                    ../../Classes/TableViewLayer.cpp 
                    
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes                   

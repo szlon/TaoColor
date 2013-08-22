@@ -18,7 +18,7 @@ void MenuLayer::onEnter()
 
 	//CCLayerColor *pLayerColor = CCLayerColor::create(ccc4(30, 100, 200,  120), 100, 60);
 
-    CCLayerGradient* pLayer = CCLayerGradient::create(ccc4(240,255,255,255), ccc4(64,224,208,255));
+    CCLayerGradient* pLayer = CCLayerGradient::create(ccc4(245,245,245,255), ccc4(223,224,228,155));
 	CCSize frameSize = CCSize(VIEW_ITEM_SIZE * VIEW_COUNT, VIEW_ITEM_SIZE + 10);
 
 	pLayer->setStartOpacity(240);

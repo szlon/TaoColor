@@ -211,6 +211,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\Classes\MyTableView.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\Classes\TableViewLayer.cpp"
 				>
 			</File>
@@ -233,6 +237,10 @@
 			</File>
 			<File
 				RelativePath="..\Classes\MenuLayer.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Classes\MyTableView.h"
 				>
 			</File>
 			<File

@@ -5,6 +5,8 @@
 #include "cocos-ext.h"
 #include "BaseTypes.h"
 
+#include "MyTableView.h"
+
 #define  VIEW_ITEM_SIZE		96
 #define  VIEW_COUNT			10
 
@@ -15,6 +17,7 @@ public:
 };
 
 class TableViewLayer : public cocos2d::CCLayer, public cocos2d::extension::CCTableViewDataSource, public cocos2d::extension::CCTableViewDelegate
+//class TableViewLayer : public cocos2d::CCLayer, MyTableView, public cocos2d::extension::CCTableViewDelegate
 {
 private:
 	StateChange *m_pStateChange;
