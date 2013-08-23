@@ -37,7 +37,7 @@ void MenuLayer::onEnter()
 	//pLayer->ignoreAnchorPointForPosition(false);
 	//pLayer->setPosition(CCPointMake(winSize.width/2, frameSize.height / 2));
 	pLayer->setPosition(ccpAdd(VisibleRect::bottom(),
-		ccp(-pLayer->getContentSize().width / 2, 0, //pLayer->getContentSize().height / 4
+		ccp(-pLayer->getContentSize().width / 2, 0 //pLayer->getContentSize().height / 4
 		)));
 
 

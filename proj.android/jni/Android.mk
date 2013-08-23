@@ -6,11 +6,17 @@ LOCAL_MODULE := game_shared
 
 LOCAL_MODULE_FILENAME := libgame
 
-LOCAL_SRC_FILES := hellocpp/main.cpp \
+#FILE_LIST := $(wildcard $(LOCAL_PATH)/../../Classes/*.cpp)
+
+#LOCAL_SRC_FILES := hellocpp/main.cpp \
+#                   $(FILE_LIST:$(LOCAL_PATH)/%=%)
+                   
+ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/AppDelegate.cpp \
                    ../../Classes/DrawScene.cpp \
                    ../../Classes/MenuLayer.cpp \
                    ../../Classes/MyTableView.cpp \
+                   ../../Classes/VisibleRect.cpp \
                    ../../Classes/TableViewLayer.cpp 
                    
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes                   

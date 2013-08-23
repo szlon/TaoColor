@@ -34,14 +34,14 @@ void DrawLayer::onEnter()
 
 	float scaleFactor = CCDirector::sharedDirector()->getContentScaleFactor();
 
-	CCLabelTTF *pLabel = CCLabelTTF::create("TaoColor", "Arial", SCALE_FACTOR * 20);
+	CCLabelTTF *pLabel = CCLabelTTF::create("TaoColor", "Arial", SCALE_FACTOR * 25);
 	pLabel->setColor(ccBLACK);	
 
 	pLabel->setPosition(ccpAdd(VisibleRect::top(),
 		ccp(0, -pLabel->getContentSize().height / 2)));
 		//ccp(-pLabel->getContentSize().width / 2, -pLabel->getContentSize().height / 2 )));
 
-	pLabel->setVisible(false);
+	//pLabel->setVisible(false);
 	this->addChild(pLabel, 1, 201);
 
 
@@ -94,61 +94,6 @@ void DrawLayer::onEnter()
 
 
 
-//void DrawLayer::onEnter()
-//{
-//	CCLayer::onEnter();
-//
-//	this->setTouchEnabled(true);
-//
-//	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
-//
-//	CCLabelTTF *label = CCLabelTTF::create("TaoColor", "Arial", 20);
-//
-//	label->setPosition( ccp(winSize.width / 2, winSize.height - 20) );
-//	label->setColor(ccBLACK);
-//
-//	this->addChild(label, 1, 201);
-//
-//
-//	//---------------------------------------------		
-//	CCMenuItemImage *pClearItem = CCMenuItemImage::create(
-//		"ClearNormal.png",
-//		"ClearSelected.png",
-//		this,
-//		menu_selector(DrawLayer::menuClearCallback) );
-//
-//
-//
-//	CCMenuItemImage *pCloseItem = CCMenuItemImage::create(
-//		"CloseNormal.png",
-//		"CloseSelected.png",
-//		this,
-//		menu_selector(DrawLayer::menuCloseCallback) );
-//
-//	pClearItem->setPosition( ccp(winSize.width - 170, winSize.height - 60) );
-//	pCloseItem->setPosition( ccp(winSize.width - 70, winSize.height - 60) );
-//
-//
-//	CCMenu* pMenu = CCMenu::create(pClearItem, pCloseItem, NULL);
-//	pMenu->setPosition( CCPointZero );
-//	this->addChild(pMenu, 1);
-//
-//
-//	MenuLayer * pMenuLayer = new MenuLayer();
-//	pMenuLayer->SetStateChange(this);
-//	pMenuLayer->autorelease();
-//
-//
-//	this->addChild(pMenuLayer, 2, 101);
-//
-//	//pMenuLayer->setVisible(false);
-//
-//	initRenderTexture();
-//
-//}
-//
-//
-
 void DrawLayer::initRenderTexture()
 {		
 	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
@@ -192,7 +137,7 @@ void DrawLayer::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
 
 
 	m_pBrush->setPosition(ccp(start.x, start.y));
-	//m_pBrush->setPosition(ccpAdd(VisibleRect::leftTop(), ccp(start.x, start.y)));
+
 
 	m_pBrush->visit();
     m_pTarget->end();
@@ -204,36 +149,45 @@ void DrawLayer::ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent)
 }
 
 void DrawLayer::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent)
-{
-    CCTouch *pTouch  = (CCTouch *)pTouches->anyObject();
-    CCPoint start = pTouch->getLocation();
-    CCPoint end = pTouch->getPreviousLocation();
+{	
+	CCSetIterator it;  
+	CCTouch* pTouch;  
 
-	//CCPoint start = ccpAdd(VisibleRect::leftTop(), pTouch->getLocation());
-	//CCPoint end = ccpAdd(VisibleRect::leftTop(), pTouch->getPreviousLocation());
+	m_pTarget->begin();
 
-    m_pTarget->begin();
+	//允许多点触摸
+	for( it = pTouches->begin(); it != pTouches->end(); it++)   
+	{  
+		pTouch = (CCTouch*)(*it);  
+		if(!pTouch) continue;
 
-    float distance = ccpDistance(start, end);
-    if (distance > 1)
-    {
-        int d = (int)distance;
-        for (int i = 0; i < d; i++)
-        {
-            float difx = end.x - start.x;
-            float dify = end.y - start.y;
-            float delta = (float)i / distance;
+		//CCTouch *pTouch  = (CCTouch *)pTouches->anyObject();
+		CCPoint start = pTouch->getLocation();
+		CCPoint end = pTouch->getPreviousLocation();
 
-			//delta = CCRANDOM_0_1() * delta;
-            
-			m_pBrush->setPosition(ccp(start.x + (difx * delta), start.y + (dify * delta)));
-			//m_pBrush->setPosition(ccpAdd(VisibleRect::leftTop(), ccp(start.x + (difx * delta), start.y + (dify * delta))));
+		float distance = ccpDistance(start, end);
+		if (distance > 1)
+		{
+			int d = (int)distance;
+			for (int i = 0; i < d; i++)
+			{
+				float difx = end.x - start.x;
+				float dify = end.y - start.y;
+				float delta = (float)i / distance;
 
-            m_pBrush->visit();
-        }
-    }
+				//delta = CCRANDOM_0_1() * delta;
 
-    m_pTarget->end();
+				m_pBrush->setPosition(ccp(start.x + (difx * delta), start.y + (dify * delta)));
+
+				m_pBrush->visit();
+			}
+		}
+
+
+	}
+
+	m_pTarget->end();
+
 }
 
 
@@ -249,15 +203,6 @@ void DrawLayer::menuClearCallback(CCObject* pSender)
 	{
 		m_pTarget->clear(255,255,255,255);
 	}
-
-    //m_pTarget->clear(0,0,0, 10);
-	//m_pTarget->clear(255,255,255,255);
-	//m_pTarget->clear(37,43,48,255);
-
-
-	//CCLayer * pMenuLayer = (CCLayer *)this->getChildByTag(101);
-	//pMenuLayer->setVisible(true);
-
 
     //m_pTarget->clear(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1());
 
