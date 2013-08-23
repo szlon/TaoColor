@@ -21,6 +21,9 @@ protected:
 public:
 	virtual void onEnter();
 
+	virtual void keyBackClicked();
+	virtual void keyMenuClicked();
+
 	void menuClearCallback(CCObject* pSender);
 	void menuCloseCallback(CCObject* pSender);
 			

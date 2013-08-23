@@ -30,6 +30,8 @@ void DrawLayer::onEnter()
 
 	this->setTouchEnabled(true);
 
+	this->setKeypadEnabled(true);
+
 	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
 
 	float scaleFactor = CCDirector::sharedDirector()->getContentScaleFactor();
@@ -68,10 +70,10 @@ void DrawLayer::onEnter()
 	//CCSize ss1 = pCloseItem->getContentSize();
 
 	pCloseItem->setPosition(ccpAdd(VisibleRect::rightTop(), 
-		ccp(-pCloseItem->getContentSize().width * 0.5, -pCloseItem->getContentSize().height/2)));
+		ccp(-pCloseItem->getContentSize().width * 0.7, -pCloseItem->getContentSize().height * 0.7)));
 
 	pClearItem->setPosition(ccpAdd(VisibleRect::rightTop(), 
-		ccp(-pClearItem->getContentSize().width * 1.5, -pClearItem->getContentSize().height/2)));
+		ccp(-pClearItem->getContentSize().width * 1.8, -pClearItem->getContentSize().height * 0.7)));
 
 
     CCMenu* pMenu = CCMenu::create(pClearItem, pCloseItem, NULL);
@@ -190,6 +192,20 @@ void DrawLayer::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent)
 
 }
 
+void DrawLayer::keyBackClicked() 
+{
+	CCDirector::sharedDirector()->end();
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	exit(0);
+#endif
+
+}
+void DrawLayer::keyMenuClicked() 
+{
+
+
+}
 
 void DrawLayer::menuClearCallback(CCObject* pSender)
 {	    
