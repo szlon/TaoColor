@@ -32,12 +32,17 @@ void DrawLayer::onEnter()
 
 	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
 
-	CCLabelTTF *label = CCLabelTTF::create("TaoColor", "Arial", 20);
-	
-	label->setPosition( ccp(winSize.width / 2, winSize.height - 20) );
-	label->setColor(ccBLACK);
+	float scaleFactor = CCDirector::sharedDirector()->getContentScaleFactor();
 
-	this->addChild(label, 1, 201);
+	CCLabelTTF *pLabel = CCLabelTTF::create("TaoColor", "Arial", SCALE_FACTOR * 20);
+	pLabel->setColor(ccBLACK);	
+
+	pLabel->setPosition(ccpAdd(VisibleRect::top(),
+		ccp(0, -pLabel->getContentSize().height / 2)));
+		//ccp(-pLabel->getContentSize().width / 2, -pLabel->getContentSize().height / 2 )));
+
+	pLabel->setVisible(false);
+	this->addChild(pLabel, 1, 201);
 
 
 	//---------------------------------------------		
@@ -55,8 +60,18 @@ void DrawLayer::onEnter()
                                         this,
 										menu_selector(DrawLayer::menuCloseCallback) );
 
-	pClearItem->setPosition( ccp(winSize.width - 170, winSize.height - 60) );
-    pCloseItem->setPosition( ccp(winSize.width - 70, winSize.height - 60) );
+	
+	//pClearItem->setPosition( ccp(winSize.width - 170, winSize.height - 60) );
+    //pCloseItem->setPosition( ccp(winSize.width - 70, winSize.height - 60) );
+	
+	//pCloseItem->setContentSize(CCSize(pCloseItem->getContentSize().width * scaleFactor, pCloseItem->getContentSize().height * scaleFactor));
+	//CCSize ss1 = pCloseItem->getContentSize();
+
+	pCloseItem->setPosition(ccpAdd(VisibleRect::rightTop(), 
+		ccp(-pCloseItem->getContentSize().width * 0.5, -pCloseItem->getContentSize().height/2)));
+
+	pClearItem->setPosition(ccpAdd(VisibleRect::rightTop(), 
+		ccp(-pClearItem->getContentSize().width * 1.5, -pClearItem->getContentSize().height/2)));
 
 
     CCMenu* pMenu = CCMenu::create(pClearItem, pCloseItem, NULL);
@@ -77,13 +92,71 @@ void DrawLayer::onEnter()
 
 }
 
+
+
+//void DrawLayer::onEnter()
+//{
+//	CCLayer::onEnter();
+//
+//	this->setTouchEnabled(true);
+//
+//	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+//
+//	CCLabelTTF *label = CCLabelTTF::create("TaoColor", "Arial", 20);
+//
+//	label->setPosition( ccp(winSize.width / 2, winSize.height - 20) );
+//	label->setColor(ccBLACK);
+//
+//	this->addChild(label, 1, 201);
+//
+//
+//	//---------------------------------------------		
+//	CCMenuItemImage *pClearItem = CCMenuItemImage::create(
+//		"ClearNormal.png",
+//		"ClearSelected.png",
+//		this,
+//		menu_selector(DrawLayer::menuClearCallback) );
+//
+//
+//
+//	CCMenuItemImage *pCloseItem = CCMenuItemImage::create(
+//		"CloseNormal.png",
+//		"CloseSelected.png",
+//		this,
+//		menu_selector(DrawLayer::menuCloseCallback) );
+//
+//	pClearItem->setPosition( ccp(winSize.width - 170, winSize.height - 60) );
+//	pCloseItem->setPosition( ccp(winSize.width - 70, winSize.height - 60) );
+//
+//
+//	CCMenu* pMenu = CCMenu::create(pClearItem, pCloseItem, NULL);
+//	pMenu->setPosition( CCPointZero );
+//	this->addChild(pMenu, 1);
+//
+//
+//	MenuLayer * pMenuLayer = new MenuLayer();
+//	pMenuLayer->SetStateChange(this);
+//	pMenuLayer->autorelease();
+//
+//
+//	this->addChild(pMenuLayer, 2, 101);
+//
+//	//pMenuLayer->setVisible(false);
+//
+//	initRenderTexture();
+//
+//}
+//
+//
+
 void DrawLayer::initRenderTexture()
 {		
 	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
 
 	m_pTarget = CCRenderTexture::create(winSize.width, winSize.height, kCCTexture2DPixelFormat_RGBA8888);	    
 	m_pTarget->retain();
-    m_pTarget->setPosition(ccp(winSize.width / 2, winSize.height / 2));
+    //m_pTarget->setPosition(ccp(winSize.width / 2, winSize.height / 2));
+	m_pTarget->setPosition(VisibleRect::center());
     
 	m_bClearState = false;
 
@@ -117,7 +190,10 @@ void DrawLayer::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
 
     m_pTarget->begin();
 
+
 	m_pBrush->setPosition(ccp(start.x, start.y));
+	//m_pBrush->setPosition(ccpAdd(VisibleRect::leftTop(), ccp(start.x, start.y)));
+
 	m_pBrush->visit();
     m_pTarget->end();
 
@@ -132,6 +208,9 @@ void DrawLayer::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent)
     CCTouch *pTouch  = (CCTouch *)pTouches->anyObject();
     CCPoint start = pTouch->getLocation();
     CCPoint end = pTouch->getPreviousLocation();
+
+	//CCPoint start = ccpAdd(VisibleRect::leftTop(), pTouch->getLocation());
+	//CCPoint end = ccpAdd(VisibleRect::leftTop(), pTouch->getPreviousLocation());
 
     m_pTarget->begin();
 
@@ -148,6 +227,7 @@ void DrawLayer::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent)
 			//delta = CCRANDOM_0_1() * delta;
             
 			m_pBrush->setPosition(ccp(start.x + (difx * delta), start.y + (dify * delta)));
+			//m_pBrush->setPosition(ccpAdd(VisibleRect::leftTop(), ccp(start.x + (difx * delta), start.y + (dify * delta))));
 
             m_pBrush->visit();
         }

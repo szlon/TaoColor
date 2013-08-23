@@ -17,26 +17,39 @@ void MenuLayer::onEnter()
 	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
 
 	//CCLayerColor *pLayerColor = CCLayerColor::create(ccc4(30, 100, 200,  120), 100, 60);
+	CCSprite *sprite = CCSprite::create("Images/Circle.png");	
+	int spriteItemSize = sprite->getContentSize().width;
+	sprite->release();
 
+	int viewCount = winSize.width * 0.8 / spriteItemSize;
     CCLayerGradient* pLayer = CCLayerGradient::create(ccc4(245,245,245,255), ccc4(223,224,228,155));
-	CCSize frameSize = CCSize(VIEW_ITEM_SIZE * VIEW_COUNT, VIEW_ITEM_SIZE + 10);
+	CCSize frameSize = CCSize(spriteItemSize * VIEW_COUNT, spriteItemSize);
+	//frameSize = CCDirector::sharedDirector()->getVisibleSize();
 
+	//float scf = SCALE_FACTOR;
+	//CCDirector::sharedDirector()->getWinSize();
+
+	//pLayer->setScale(scf);
 	pLayer->setStartOpacity(240);
 	pLayer->setEndOpacity(150);
 	pLayer->setContentSize(frameSize);
 
-	pLayer->ignoreAnchorPointForPosition(false);
-	pLayer->setPosition(CCPointMake(winSize.width/2, frameSize.height / 2));
+	//pLayer->ignoreAnchorPointForPosition(false);
+	//pLayer->setPosition(CCPointMake(winSize.width/2, frameSize.height / 2));
+	pLayer->setPosition(ccpAdd(VisibleRect::bottom(),
+		ccp(-pLayer->getContentSize().width / 2, 0, //pLayer->getContentSize().height / 4
+		)));
 
 
 
 	TableViewLayer *pViewLayer = TableViewLayer::create();
 	pViewLayer->SetStateChange(this);
 	pViewLayer->setContentSize(frameSize);
-	pViewLayer->ignoreAnchorPointForPosition(false);	
 
-	
-	pViewLayer->setPosition(CCPointMake(frameSize.width/2, frameSize.height/2 + 5));
+		
+	//pViewLayer->setPosition(CCPointMake(frameSize.width/2, frameSize.height/2 + 5));
+
+	//pViewLayer->setPosition(VisibleRect::center());
 
 	pLayer->addChild(pViewLayer);
 

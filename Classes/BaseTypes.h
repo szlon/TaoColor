@@ -1,6 +1,11 @@
 ﻿#ifndef __BASE_TYPES_H__
 #define __BASE_TYPES_H__
+
 #include "cocos2d.h"
+#include "AppMacros.h"
+#include "VisibleRect.h"
+
+
 
 #define  RGBTABLE_COUNT  106
 

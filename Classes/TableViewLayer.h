@@ -7,8 +7,8 @@
 
 #include "MyTableView.h"
 
-#define  VIEW_ITEM_SIZE		96
-#define  VIEW_COUNT			10
+//#define  VIEW_ITEM_SIZE		96
+#define  VIEW_COUNT			8
 
 class CustomTableViewCell : public cocos2d::extension::CCTableViewCell
 {
@@ -21,7 +21,7 @@ class TableViewLayer : public cocos2d::CCLayer, public cocos2d::extension::CCTab
 {
 private:
 	StateChange *m_pStateChange;
-
+	int m_ViewItemSize;
 public:
     virtual bool init();  
 
