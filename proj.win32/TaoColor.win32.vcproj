@@ -199,6 +199,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\Classes\BrushViewLayer.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\Classes\DrawScene.cpp"
 				>
 			</File>
@@ -236,6 +240,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\Classes\BrushViewLayer.h"
+				>
+			</File>
+			<File
 				RelativePath="..\Classes\DrawScene.h"
 				>
 			</File>
@@ -264,18 +272,6 @@
 			Name="resource"
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;jpg;jpeg;jpe;png;manifest"
 			>
-			<File
-				RelativePath="..\Resources\CloseNormal.png"
-				>
-			</File>
-			<File
-				RelativePath="..\Resources\CloseSelected.png"
-				>
-			</File>
-			<File
-				RelativePath="..\Resources\HelloWorld.png"
-				>
-			</File>
 			<File
 				RelativePath=".\res\TaoColor.ico"
 				>

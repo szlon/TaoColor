@@ -1,5 +1,5 @@
-﻿#ifndef __TABLEVIEW_LAYER_H__
-#define __TABLEVIEW_LAYER_H__
+﻿#ifndef __BRUSHVIEW_LAYER_H__
+#define __BRUSHVIEW_LAYER_H__
 
 #include "cocos2d.h"
 #include "cocos-ext.h"
@@ -7,12 +7,9 @@
 
 #include "MyTableView.h"
 
-//#define  VIEW_ITEM_SIZE		96
-#define  VIEW_COUNT			8
+#define  VIEW_COUNT			4
 
-
-class TableViewLayer : public cocos2d::CCLayer, public cocos2d::extension::CCTableViewDataSource, public cocos2d::extension::CCTableViewDelegate
-//class TableViewLayer : public cocos2d::CCLayer, MyTableView, public cocos2d::extension::CCTableViewDelegate
+class BrushViewLayer : public cocos2d::CCLayer, public cocos2d::extension::CCTableViewDataSource, public cocos2d::extension::CCTableViewDelegate
 {
 private:
 	StateChange *m_pStateChange;
@@ -20,7 +17,7 @@ private:
 public:
     virtual bool init();  
 
-    CREATE_FUNC(TableViewLayer);
+    CREATE_FUNC(BrushViewLayer);
     
     virtual void scrollViewDidScroll(cocos2d::extension::CCScrollView* view) {};
     virtual void scrollViewDidZoom(cocos2d::extension::CCScrollView* view) {}
@@ -32,7 +29,7 @@ public:
     virtual unsigned int numberOfCellsInTableView(cocos2d::extension::CCTableView *table);
 
 	//接口
-	virtual void onColorChanged(cocos2d::ccColor3B color);
+	virtual void onBrushChanged(int index);
 	void SetStateChange(StateChange *pStateChange);
 
 };

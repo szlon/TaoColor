@@ -14,6 +14,7 @@ public:
 	void menuColorCallback(cocos2d::CCObject* pSender);
 
 	//接口
+	virtual void onBrushChanged(int index);
 	virtual void onColorChanged(cocos2d::ccColor3B color);
 	void SetStateChange(StateChange *pStateChange);
 

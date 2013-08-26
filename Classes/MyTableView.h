@@ -27,5 +27,10 @@ class MyTableView : public CCTableView
         struct timeval m_endTime;
 };
 
+class CustomTableViewCell : public cocos2d::extension::CCTableViewCell
+{
+public:
+	virtual void draw();
+};
 
 #endif

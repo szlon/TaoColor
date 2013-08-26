@@ -17,6 +17,7 @@ LOCAL_MODULE_FILENAME := libgame
                    ../../Classes/MenuLayer.cpp \
                    ../../Classes/MyTableView.cpp \
                    ../../Classes/VisibleRect.cpp \
+                   ../../Classes/BrushViewLayer.cpp \
                    ../../Classes/TableViewLayer.cpp 
                    
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes                   

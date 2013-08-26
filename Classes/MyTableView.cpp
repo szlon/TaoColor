@@ -1,7 +1,21 @@
 ﻿#include "MyTableView.h"
 #include <stdlib.h>
 
+//------------------------------------------------------------------
+//
+// CustomTableViewCell
+//
+//------------------------------------------------------------------
+void CustomTableViewCell::draw()
+{
+	CCTableViewCell::draw();	
+}
 
+//------------------------------------------------------------------
+//
+// MyTableView
+//
+//------------------------------------------------------------------
 MyTableView* MyTableView::create(CCTableViewDataSource* dataSource, CCSize size)
 {
     return MyTableView::create(dataSource, size, NULL);

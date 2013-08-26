@@ -6,6 +6,7 @@
 #include "VisibleRect.h"
 
 
+#define  BRUSHES_COUNT  3
 
 //#define  RGBTABLE_COUNT  106
 //
@@ -64,6 +65,7 @@ class StateChange
 {
 public:
 	virtual void onColorChanged(cocos2d::ccColor3B color) = 0;
+	virtual void onBrushChanged(int index) = 0;
 };
 
 

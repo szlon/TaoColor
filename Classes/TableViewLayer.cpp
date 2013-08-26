@@ -6,17 +6,7 @@ USING_NS_CC_EXT;
 
 //------------------------------------------------------------------
 //
-// CustomTableViewCell
-//
-//------------------------------------------------------------------
-void CustomTableViewCell::draw()
-{
-	CCTableViewCell::draw();	
-}
-
-//------------------------------------------------------------------
-//
-// ScrollViewLayer
+// TableViewLayer
 //
 //------------------------------------------------------------------
 bool TableViewLayer::init()
@@ -32,13 +22,39 @@ bool TableViewLayer::init()
 	m_ViewItemSize = sprite->getContentSize().width;
 	sprite->release();
 
+
+
+
+	//CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+
+	//CCSprite *sprite = CCSprite::create("Images/Circle.png");	
+	//int spriteItemSize = sprite->getContentSize().width;
+	//sprite->release();
+
+	//int viewCount = winSize.width * 0.8 / spriteItemSize;
+	CCLayerGradient* pLayer = CCLayerGradient::create(ccc4(245,245,245,255), ccc4(223,224,228,155));
+	CCSize frameSize = CCSize(m_ViewItemSize * VIEW_COUNT, m_ViewItemSize);
+
+	pLayer->setStartOpacity(240);
+	pLayer->setEndOpacity(150);
+	pLayer->setContentSize(frameSize);
+
+	pLayer->setPosition(ccpAdd(VisibleRect::bottom(),
+		ccp(-pLayer->getContentSize().width / 2, 0 //pLayer->getContentSize().height / 4
+		)));
+
+
+
+
 	//CCTableView* tableView = CCTableView::create(this, CCSizeMake(VIEW_ITEM_SIZE * VIEW_COUNT, VIEW_ITEM_SIZE));
-	CCTableView* tableView = MyTableView::create(this, CCSizeMake(m_ViewItemSize * VIEW_COUNT, m_ViewItemSize));
+	CCTableView* tableView = MyTableView::create(this, frameSize);
     tableView->setDirection(kCCScrollViewDirectionHorizontal);	  
     tableView->setDelegate(this);
 
-	this->addChild(tableView);
-    tableView->reloadData();
+	pLayer->addChild(tableView);
+	this->addChild(pLayer);
+    
+	tableView->reloadData();
 	  
 	return true;
 }

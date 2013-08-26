@@ -38,6 +38,7 @@ public:
     //virtual void ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent);
 
 	//接口
+	virtual void onBrushChanged(int index);
 	virtual void onColorChanged(cocos2d::ccColor3B color);
 
 };

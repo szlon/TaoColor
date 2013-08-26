@@ -49,16 +49,16 @@ void DrawLayer::onEnter()
 
 	//---------------------------------------------		
 	CCMenuItemImage *pClearItem = CCMenuItemImage::create(
-                                        "ClearNormal.png",
-                                        "ClearSelected.png",
+                                        "Images/ClearNormal.png",
+                                        "Images/ClearSelected.png",
                                         this,
 										menu_selector(DrawLayer::menuClearCallback) );
 
 
 
     CCMenuItemImage *pCloseItem = CCMenuItemImage::create(
-                                        "CloseNormal.png",
-                                        "CloseSelected.png",
+                                        "Images/CloseNormal.png",
+                                        "Images/CloseSelected.png",
                                         this,
 										menu_selector(DrawLayer::menuCloseCallback) );
 
@@ -112,7 +112,7 @@ void DrawLayer::initRenderTexture()
 
 	this->addChild(m_pTarget, 0);
 
-	m_pBrush = CCSprite::create("Images/Brush03.png");
+	m_pBrush = CCSprite::create("Brushes/Brush0.png");
 	m_pBrush->retain();	    
 	m_pBrush->setColor(ccBLACK);
     m_pBrush->setOpacity(100);
@@ -244,6 +244,19 @@ void DrawLayer::onColorChanged(ccColor3B color)
 	label->setColor(color);
 
 	m_pBrush->setColor(color);
+
+}
+
+void DrawLayer::onBrushChanged(int index)
+{
+	CCString *strBrush = CCString::createWithFormat("Brushes/Brush%d.png", index);
+
+	if (m_pBrush) m_pBrush->release();
+
+	m_pBrush = CCSprite::create(strBrush->getCString());
+	m_pBrush->retain();	    
+	m_pBrush->setColor(ccBLACK);
+	//m_pBrush->setOpacity(100);
 
 }
 
